@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=0.7, minimum-scale=0.7, user-scalable=no">
+    <title>Minecraft Portfolio</title>
+    <link rel = "stylesheet" href="homepage.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div id="jukebox-container" title="Mute/Unmute Music">
+            <div id="jukebox-sprite"></div>
+            <div id="music-note-particle"></div>
+        </div>
+
+        <canvas id="steve-canvas"></canvas>
+        <div id="ground" aria-hidden="true">
+            <div class="dirt"></div>
+            <div class="grass"></div>
+        </div> 
+        <div class="nav-links">
+            <a href="#about" class="nav-link" data-section="about">About</a>
+            <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+            <a href="#hobbies" class="nav-link" data-section="hobbies">Hobbies</a>
+            <a href="#game-zone" class="nav-link" data-section="game-zone">Game Zone</a>
+            <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+        </div>
+    </nav>
+    
+    <div class="content">
+        <section id="about" class="section">
+            <h2>About Me</h2>
+            <p style="font-size: large;">Hi <span class="wave-emoji">👋</span> I'm Arnav</p>
+            <p>Currently pursuing a BTech (integrated) in Computer Engineering. I'm experienced in <span class="highlighted-text">Full Stack Web Development</span></p>
+            
+            <div id="zombie-container">
+                <canvas id="zombie-canvas"></canvas>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2>Projects</h2>
+            <p>I began my programming journey by building Python projects, which remains my favorite language to work with. After learning web development, I expanded into creating websites, which you can explore on my GitHub. In my free time, I also develop Minecraft plugins, available on Modrinth. You can also check out my minecraft server (yet to release) on youtube.</p>
+
+            <div class="item-frame-container">
+                <a href="https://github.com/Arnavvid" target="_blank" class="item-frame-link">
+                    <div class="item-frame">
+                        <img src="images/github.png" alt="GitHub" class="item-logo">
+                    </div>
+                    <span class="item-label">GitHub</span>
+                </a>
+
+                <a href="https://modrinth.com/user/Misclik" target="_blank" class="item-frame-link">
+                    <div class="item-frame">
+                        <img src="images/modrinth.png" alt="Modrinth" class="item-logo">
+                    </div>
+                    <span class="item-label">Modrinth</span>
+                </a>
+
+                <a href="https://www.youtube.com/@Pyrethofficial" target="_blank" class="item-frame-link">
+                    <div class="item-frame">
+                        <img src="images/youtube.png" alt="Youtube" class="item-logo">
+                    </div>
+                    <span class="item-label">Youtube</span>
+                </a>
+
+            </div>
+        </section>
+
+        <section id="hobbies" class="section">
+            <h2>Hobbies</h2>
+            <div id="hobbies-draggable-area">
+                <p>
+                    <span class="draggable-word">When</span>
+                    <span class="draggable-word">I'm</span>
+                    <span class="draggable-word">not</span>
+                    <span class="draggable-word">coding</span>
+                    <span class="draggable-word punctuation">,</span>
+
+                    <span class="draggable-word">I</span>
+                    <span class="draggable-word">usually</span>
+                    <span class="draggable-word">game</span>
+                    <span class="draggable-word">or</span>
+                    <span class="draggable-word">read</span>
+                    <span class="draggable-word punctuation">.</span>
+
+                    <span class="draggable-word">I</span>
+                    <span class="draggable-word">play</span>
+                    <span class="draggable-word">badminton</span>
+                    <span class="draggable-word punctuation">,</span>
+
+                    <span class="draggable-word">table</span>
+                    <span class="draggable-word">tennis</span>
+                    <span class="draggable-word punctuation">,</span>
+
+                    <span class="draggable-word">chess</span>
+                    <span class="draggable-word punctuation">,</span>
+
+                    <span class="draggable-word">and</span>
+                    <span class="draggable-word">football</span>
+                    <span class="draggable-word punctuation">.</span>
+                    
+                    <span class="draggable-word">I</span>
+                    <span class="draggable-word">also</span>
+                    <span class="draggable-word">like</span>
+                    <span class="draggable-word">watching</span>
+                    <span class="draggable-word">web</span>
+                    <span class="draggable-word">series</span>
+                    <span class="draggable-word punctuation">.</span>
+
+                    <span class="draggable-word">I've</span>
+                    <span class="draggable-word">already</span>
+                    <span class="draggable-word">completed</span>
+                    <span class="draggable-word">Breaking</span>
+                    <span class="draggable-word">Bad</span>
+                    <span class="draggable-word">and</span>
+
+                    <span class="draggable-word">I've</span>
+                    <span class="draggable-word">almost</span>
+                    <span class="draggable-word">completed</span>
+                    <span class="draggable-word">Dr</span>
+                    <span class="draggable-word">House</span>
+                    <span class="draggable-word punctuation">.</span>
+
+                </p>
+            </div>
+            <div id="hobbies-chat">
+                <div id="hobbies-chat-text">hello !</div>
+            </div>
+            <div id = "hobbies-instructions">Grab text and make a sentence anywhere on the screen</div>
+        </section>
+
+
+        <section id ="game-zone" class="section">
+            <h2>Game Zone</h2>
+
+            <div id="game-selector">
+                <button class="mc-button active" data-game="tag">Tag</button>
+                <button class="mc-button" data-game="air-hockey">Air Hockey</button>
+            </div>
+
+            <div id="tag-game" class="game-wrapper">
+                <div id="game-container">
+                    <div id="game-controls-tag">
+                        <button id="btn-1p" class="mc-button">1 Player (Mouse)</button>
+                        <button id="btn-2p" class="mc-button">2 Player (Keys)</button>
+                    </div>
+
+                    <div id="score-display">Select Game type</div>
+                    <canvas id="game-canvas" width="800" height="450"></canvas>
+
+                    <div id="controls-hint"
+                        style="display:none;color:#aaa;text-align:center;font-size:10px;margin-top:5px;font-family:monospace;">
+                        P1: [W/S] | P2: [I/K]
+                    </div>
+                </div>
+            </div>
+
+            <div id="air-hockey-game" class="game-wrapper hidden">
+                <div id = "game-controls-airhockey">
+                    <button id="btn-d1" class="mc-button">Easy</button>
+                    <button id="btn-d2" class="mc-button">Medium</button>
+                </div>
+                <div id = "air-hockey-dynamic">
+                    <div id="air-score">0 : 0</div>
+                    
+                    <canvas id="air-hockey-canvas" width="800" height="450"></canvas>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="contact" class="section">
+            <h2>Contact</h2>
+            <p>Want to collaborate or just say hi? Feel free to reach out! Let's build something amazing together.</p>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=arnavvidhate91@gmail.com&su=Website%20Inquiry&body=Hello%2C%0A%0AI%20am%20contacting%20you%20from%20your%20website." target = "_blank" class="email-card">
+                <img src="images/gmail.png" style="width: 30px;">
+                arnavvidhate91@gmail.com
+            </a>
+        </section>
+    </div>
+    <div id="achievement-toast">
+        <div class="achievement-icon"></div>
+        <div class="achievement-text">
+            <span class="achievement-title">Advancement Made!</span>
+            <span class="achievement-name">The Enderman</span>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="homepage.js"></script>
+    <script src="tag.js"></script>
+    <script src="airhockey.js"></script>
+    
+</body>
+</html>

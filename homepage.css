@@ -1,0 +1,730 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Mojangles&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background: #1a1a1a;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 15vh;
+    z-index: 1000;
+    background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 70%, #8B7355 70%, #8B7355 100%);
+    border-bottom: 7px solid #494645;
+    overflow: hidden;
+    
+}
+
+#navbar::before,
+#navbar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%; 
+    bottom: 30%;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+        linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+        linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+        linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+        linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+        linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+        linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+        linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+        linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+        linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+        linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+        linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)),
+        linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7));
+    background-size:
+        45px 12px, 30px 12px, 50px 12px,
+        30px 10px, 40px 10px, 35px 10px,
+        20px 8px, 25px 8px,
+        40px 12px, 35px 12px, 45px 12px,
+        28px 10px, 32px 10px;
+    background-position:
+        10% 20%, 12% 32%, 8% 32%,
+        35% 25%, 37% 38%, 33% 38%,
+        50% 15%, 52% 28%,
+        75% 22%, 77% 35%, 73% 35%,
+        90% 30%, 88% 42%;
+    background-repeat: no-repeat;
+    
+    animation: cloudDrift 100s linear infinite;
+}
+
+#navbar::before {
+    left: 0;
+}
+
+#navbar::after {
+    left: 100%;
+}
+
+@keyframes cloudDrift {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+
+#achievement-toast {
+    position: fixed;
+    top: -100px;
+    left: 20px;
+    width: 320px;
+    height: 60px;
+    background: #212121;
+    border: 3px solid #000;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    z-index: 9999;
+    transition: top 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    image-rendering: pixelated;
+}
+
+#achievement-toast.show {
+    top: 20px;
+}
+
+.achievement-icon {
+    width: 40px;
+    height: 40px;
+    background-image: url('images/ender_pearl.png');
+    background-size: contain;
+    margin-right: 15px;
+}
+
+.achievement-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.achievement-title {
+    color: #ffff55;
+    font-size: 12px;
+    margin-bottom: 4px;
+    padding-top: 10px;
+}
+
+.achievement-name {
+    color: #ffffff;
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+
+
+#steve-canvas {
+    position: absolute;
+    top: 0;
+    padding-bottom: 10px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.steve-nametag {
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -100%);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    padding: 3px 6px;
+    white-space: nowrap;
+    background: rgba(0, 0, 0, 0.459);
+    border: 2px solid rgba(255,255,255,0.06);
+    text-shadow: 0 2px 0 #000;
+    image-rendering: pixelated;
+    z-index: 10000;
+    color: #fff;
+}
+
+
+.foreground-grass-layer {
+    position: absolute;
+    bottom: 38%;
+    left: 0;
+    width: 100%;
+    height: 0px;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 100%;
+}
+
+
+.flora-sprite {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    image-rendering: pixelated;
+    transform-origin: bottom center;
+}
+
+.grass-blade {
+    position: absolute;
+    bottom: -4px;
+    width: 20px;
+    height: 20px;
+    background-image: url('images/grass.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    transform-origin: bottom center;
+    opacity: 50%;
+    z-index: 5;
+}
+.tall-grass-blade {
+    width: 20px;
+    height: 40px; 
+    bottom: -4px;
+    background-image: url('images/tall_grass.png');
+    opacity: 70%;
+}
+
+.pixel-tree {
+    width: 100px;
+    height: 125px;
+    bottom: -8px;
+    background-image: url('images/tree.png');
+    filter: brightness(0.95);
+}
+
+#ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 35%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#ground .dirt {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    top: 6px;
+
+    background-image:
+        linear-gradient(#8b5a2b, #7a4d25);
+    background-size: 32px 32px;
+    background-repeat: repeat;
+}
+
+#ground .grass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+
+    background-image:
+        linear-gradient(#5fa83a, #53a02f);
+    background-size: 32px 6px;
+    background-repeat: repeat;
+    border-top: 2px solid #3e7c1f;
+    box-shadow: 0 -2px 0 rgba(0,0,0,0.25) inset;
+}
+
+
+.nav-links {
+    position: absolute;
+
+    bottom: -10px;
+
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 0 5%;
+    gap: 20px;
+
+    z-index: 5;
+}
+
+
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 140px;
+    height: 48px;
+
+    background-image: url("images/warped_sign.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    font-size: 0.65rem;
+    color: #f5f1e6;
+    text-decoration: none;
+    text-shadow:
+        0 2px 0 #2a1b10,
+        0 -2px 0 #2a1b10,
+        2px 0 0 #2a1b10,
+        -2px 0 0 #2a1b10;
+
+
+    padding: 6px 12px;
+    padding-top: 4px;
+    image-rendering: pixelated;
+
+    transition: transform 0.15s ease;
+}
+
+.nav-link:hover {
+    transform: translateY(-4px) scale(1.05);
+}
+
+.nav-link.active {
+    filter: brightness(1.25);
+}
+
+#jukebox-container {
+    position: absolute;
+    right: 20px;
+    bottom: 35%;
+    width: 48px;
+    height: 48px;
+    z-index: 1001;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+#jukebox-sprite {
+    width: 100%;
+    height: 100%;
+    background-image: url('images/jukebox.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+}
+
+.music-playing #jukebox-sprite {
+    animation: jukeboxBounce 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes jukeboxBounce {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+#music-note-particle {
+    position: absolute;
+    top: -10px;
+    font-size: 20px;
+    color: #ff00ff;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.music-playing #music-note-particle {
+    animation: floatNote 2s linear infinite;
+}
+
+@keyframes floatNote {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-30px) rotate(20deg); opacity: 0; }
+}
+
+.item-frame-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.item-frame-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.item-frame-link:hover {
+    transform: scale(1.1);
+}
+
+.item-frame {
+    width: 80px;
+    height: 80px;
+    background-image: url('images/item_frame.png');
+    background-size: cover;
+    image-rendering: pixelated;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.item-logo {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    object-fit: contain;
+}
+
+.item-label {
+    font-size: 0.7rem;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.content {
+    margin-top: 15vh;
+    padding: 40px 20px;
+}
+
+.section {
+    min-height: 100vh;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 4px solid #333;
+}
+
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #FFD700;
+    text-shadow: 3px 3px 0 #000;
+}
+
+.section p {
+    font-size: 0.8rem;
+    line-height: 1.8;
+    max-width: 800px;
+    text-align: center;
+}
+
+#about { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+#projects { background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%); }
+#hobbies { background: linear-gradient(135deg, #134E5E 0%, #71B280 100%); }
+#contact { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+
+
+#hobbies-draggable-area {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    min-height: 400px;
+    margin: 0 auto;
+}
+
+#hobbies-draggable-area p {
+    font-size: 0.8rem;
+    line-height: 1.8;
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+    min-height: 200px;
+}
+
+.draggable-word {
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.1s;
+}
+
+.draggable-word:hover {
+    transform: scale(1.05);
+}
+
+.draggable-word.dragging {
+    cursor: grabbing;
+    z-index: 1000;
+}
+
+.enderpearl {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    background-image: url("images/ender_pearl.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    z-index: 9999;
+    image-rendering: pixelated;
+    animation: enderparticles 0.5s linear infinite;
+}
+
+@keyframes enderparticles {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+.teleport-particle {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: #8B00FF;
+    image-rendering: pixelated;
+    pointer-events: none;
+    z-index: 9999;
+    animation: teleportParticle 500ms ease-out forwards;
+}
+
+@keyframes teleportParticle {
+    from {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(0.2);
+    }
+}
+
+
+@media (max-width: 768px) {
+    .nav-link {
+        width: 100px;
+        height: 36px;
+        font-size: 0.45rem;
+    }
+}
+.email-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    background: #1f1f1f;
+    color: #fff;
+    text-decoration: none;
+}
+
+.highlighted-text {
+    color: #6dee03;
+}
+
+#zombie-container {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    width: 100%;
+    height: 30vh;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#zombie-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+#table-tennis {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #134E5E 0%, #71B280 100%);
+    font-family: 'Press Start 2P', cursive;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    background: transparent;
+}
+
+#game-container:fullscreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+
+#game-container:fullscreen #game-canvas {
+    width: auto;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+
+#game-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+#score-display {
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #FFD700;
+    font-size: 14px;
+    text-shadow: 2px 2px 0 #000;
+    z-index: 10;
+    pointer-events: none;
+}
+
+
+#game-controls-tag {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+#game-controls-airhockey {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.mc-button {
+    background-color: #727272;
+    border: 2px solid #fff;
+    border-bottom: 2px solid #333;
+    border-right: 2px solid #333;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    image-rendering: pixelated;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.mc-button:active {
+    border: 2px solid #333;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: translateY(2px);
+}
+
+.mc-button.active {
+    background-color: #5fa83a;
+    border-color: #fff;
+}
+
+.mc-button:hover:not(.active) {
+    background-color: #8b8b8b;
+}
+
+#game-selector {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.game-wrapper.hidden {
+    display: none;
+}
+
+#air-hockey-game {
+    padding: 0px;
+    border-radius: 18px;
+}
+
+#air-hockey-dynamic {
+    padding: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 50px;
+    background: black;
+    border-radius: 50px;
+}
+
+#air-hockey-canvas {
+    display: block;
+    margin: auto;
+    border-radius: 18px;
+    background: #02020a;
+    box-shadow:
+        0 0 25px rgba(0,255,255,0.25),
+        inset 0 0 40px rgba(0,255,255,0.1);
+}
+
+#air-score {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 30px;
+    color: #0ff;
+    text-shadow: 0 0 8px #0ff;
+}
+
+#hobbies-chat {
+  position: relative;
+  width: 260px;
+  min-height: 60px;
+  padding: 12px;    
+  background: rgba(0,0,0,0.65);
+  border: 3px solid #000;
+  font-size: 10px;
+  text-align: left;
+  pointer-events: none;
+  line-height: 15px;
+}
+
+#hobbies-chat-text {
+  white-space: pre-wrap;
+}
+
+#hobbies-instructions {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #FFD700;
+    font-style: bold;
+    font: Helvetica;
+}
+
+.wave-emoji {
+    display: inline-block;
+    font-size: 1.5rem;
+    cursor: grab;
+}
+.wave-emoji:hover {
+    animation: rotatehand 2s ease-in-out infinite;
+    transform-origin: bottom right;
+}
+@keyframes rotatehand {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(14deg); }
+    40% { transform: rotate(-8deg); }
+    60% { transform: rotate(14deg); }
+    80% { transform: rotate(-4deg); }
+}
+
