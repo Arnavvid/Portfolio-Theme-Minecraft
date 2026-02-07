@@ -450,6 +450,13 @@ body {
     min-height: 200px;
 }
 
+#hobbies-draggable-area img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 50px;
+}
+
 .draggable-word {
     cursor: grab;
     user-select: none;
@@ -526,7 +533,12 @@ body {
 }
 
 .highlighted-text {
-    color: #6dee03;
+    color: #fffb00;
+    cursor: pointer;
+}
+.highlighted-text:hover {
+    text-shadow: 0 0 8px #6dee03;
+    text-decoration-line: underline;
 }
 
 #zombie-container {
@@ -686,6 +698,11 @@ body {
     text-shadow: 0 0 8px #0ff;
 }
 
+#type-book {
+    align-self: center;
+    justify-content: center;
+}
+
 #hobbies-chat {
   position: relative;
   width: 260px;
@@ -717,7 +734,7 @@ body {
     cursor: grab;
 }
 .wave-emoji:hover {
-    animation: rotatehand 2s ease-in-out infinite;
+    animation: rotatehand 1.2s ease-in-out infinite;
     transform-origin: bottom right;
 }
 @keyframes rotatehand {

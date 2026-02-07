@@ -31,7 +31,7 @@
         <section id="about" class="section">
             <h2>About Me</h2>
             <p style="font-size: large;">Hi <span class="wave-emoji">👋</span> I'm Arnav</p>
-            <p>Currently pursuing a BTech (integrated) in Computer Engineering. I'm experienced in <span class="highlighted-text">Full Stack Web Development</span></p>
+            <p style="color: rgb(221, 221, 221);">Currently pursuing a BTech (integrated) in Computer Engineering. I've gained experience through projects in <span class="highlighted-text" id="link-fullstack">Full Stack Web Development</span>, <span class="highlighted-text" id = "link-aiagent">Agentic AI</span> and <span class="highlighted-text" id = "link-pythonsoftware">Python software development</span>.</p>
             
             <div id="zombie-container">
                 <canvas id="zombie-canvas"></canvas>
@@ -124,6 +124,7 @@
 
                 </p>
             </div>
+            
             <div id="hobbies-chat">
                 <div id="hobbies-chat-text">hello !</div>
             </div>
@@ -158,8 +159,10 @@
 
             <div id="air-hockey-game" class="game-wrapper hidden">
                 <div id = "game-controls-airhockey">
-                    <button id="btn-d1" class="mc-button">Easy</button>
+                    <button id="btn-d1" class="mc-button active">Easy</button>
                     <button id="btn-d2" class="mc-button">Medium</button>
+                    <button id="btn-d3" class="mc-button">Hard</button>
+                    <button id="btn-d4" class="mc-button">Insane</button>
                 </div>
                 <div id = "air-hockey-dynamic">
                     <div id="air-score">0 : 0</div>
@@ -191,6 +194,7 @@
     <script src="homepage.js"></script>
     <script src="tag.js"></script>
     <script src="airhockey.js"></script>
+    <script src="hobbies.js"></script>
     
 </body>
 </html>

@@ -9,7 +9,8 @@ let lastFrameTime = performance.now();
 let accumulator = 0;
 let airGameState = 'PLAYING';
 let airWinnerText = "";
-
+let reactionTime = 5;
+let airCountdownInterval = null;
 const airGame = {
     width: 800,
     height: 450,
@@ -54,8 +55,8 @@ const airAI = {
     vy: 0,
     radius: 25,
     mass: 5,
-    maxSpeed: 6.3,
-    difficulty: 0.08
+    maxSpeed: 5.9,
+    difficulty: 0.06
 };
 
 const airMouse = {
@@ -89,21 +90,95 @@ function initAirHockey() {
 }
 
 function startAirCountdown() {
+    if (airCountdownInterval) {
+        clearInterval(airCountdownInterval);
+    }
+
     airCountdown = 3;
-    handleAirCanvasClick();
+    
     airCountdownActive = true;
     airGame.running = false;
-    airGameLoop();
-    const interval = setInterval(() => {
+    
+    if (!airLoopId) {
+        airGameLoop();
+    }
+
+    airCountdownInterval = setInterval(() => {
         airCountdown--;
 
         if (airCountdown <= 0) {
-            clearInterval(interval);
+            clearInterval(airCountdownInterval);
             airCountdownActive = false;
             airGame.running = true;
-            
         }
     }, 1000);
+}
+
+function stopAirHockey() {
+    airGame.running = false;
+
+    if (airLoopId !== null) {
+        cancelAnimationFrame(airLoopId);
+        airLoopId = null;
+    }
+
+    // 4. ALSO clear the interval when the game stops completely
+    if (airCountdownInterval) {
+        clearInterval(airCountdownInterval);
+        airCountdownInterval = null; // Clear the variable
+    }
+
+    airCanvas.removeEventListener('mousemove', handleAirMouseMove);
+    airCanvas.removeEventListener('click', handleAirCanvasClick);
+}
+
+document.getElementById("btn-d1").addEventListener("click", () => {
+    setButtonActive("btn-d1");
+    airAI.difficulty = 0.06;
+    airAI.maxSpeed = 5.9;
+    airAI.radius = 25;
+    reactionTime = 5;
+});
+
+document.getElementById("btn-d2").addEventListener("click", () => {
+    setButtonActive("btn-d2");
+    airAI.difficulty = 0.08;
+    airAI.radius = 25;
+    airAI.maxSpeed = 9.5;
+    reactionTime = 3;
+});
+
+document.getElementById("btn-d3").addEventListener("click", () => {
+    setButtonActive("btn-d3");
+    airAI.difficulty = 0.14;
+    airAI.maxSpeed = 15.2;
+    airAI.radius = 25;
+    reactionTime = 0.5;
+});
+
+document.getElementById("btn-d4").addEventListener("click", () => {
+    setButtonActive("btn-d4");
+    airAI.difficulty = 0.2;
+    airAI.maxSpeed = 18;
+    airAI.radius = 30;
+    reactionTime = 0.1;
+});
+
+function setButtonActive(id){
+    let li = ["btn-d1", "btn-d2", "btn-d3", "btn-d4"];
+    initAirHockey();
+    updateAirScore();
+    document.getElementById(id).classList.add("active");
+    for (let i =0; i < li.length; i++){
+        if (li[i] != String(id)){
+            try{
+                document.getElementById(li[i]).classList.remove("active");
+            }
+            catch{
+                continue;
+            }
+        }
+    }
 }
 
 
@@ -203,7 +278,7 @@ function updateAirAI() {
     let dy = targetY - airAI.y;
     const dist = Math.sqrt(dx*dx + dy*dy);
 
-    if (dist > 5) {
+    if (dist > reactionTime) {
         if (airPuck.x > airGame.width / 2 && !isTopCorner && !isBottomCorner) {
             airAI.vx = (dx / dist) * airAI.maxSpeed;
             airAI.vy = (dy / dist) * airAI.maxSpeed;
@@ -373,7 +448,6 @@ function handleAirCanvasClick(e) {
         updateAirScore();
         resetAirPuck();
         airGameState = 'PLAYING';
-        airCountdown = 10;
         startAirCountdown();
     }
 }

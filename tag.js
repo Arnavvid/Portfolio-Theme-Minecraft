@@ -318,3 +318,23 @@ btn2.addEventListener('click', () => {
     btn1.classList.remove('active');
     startGame(3);
 });
+
+const gameSelectorButtons = document.querySelectorAll('#game-selector button');
+
+gameSelectorButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        resetTagGameToMenu();
+    });
+});
+function resetTagGameToMenu() {
+    gameState = 'MENU';
+    players = [];
+    winnerText = "";
+    tagPaused = false;
+
+    scoreDisplay.textContent = "Select Game type";
+    hint.style.display = 'none';
+
+    btn1.classList.remove('active');
+    btn2.classList.remove('active');
+}
