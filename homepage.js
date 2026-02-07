@@ -629,10 +629,8 @@ function tiltTowardsTarget(targetX) {
 }
 
 const playlist = [
-    'tracks/otherside.mp3',
-    'tracks/FREE99.mp3',
-    'tracks/SensualMelancholia.mp3',
-    'tracks/8-BitKungFu.mp3',
+    'tracks/Elektronomia.mp3',
+    'Too Late.mp3'
 ];
 
 let currentTrackIndex = 0;
