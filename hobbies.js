@@ -2,6 +2,11 @@ const movedWords = new Set();
 const wordLastMoved = new Map();
 const detectedSentences = new Map();
 const sentence_set = {
+    "Dr Bad" : "doofenshmirtz ?",
+    "I'm Dr Bad" : "doofenshmirtz ?",
+    "Dr I'm Bad" : "Here's some vicodin.",
+    "Dr chess" : "Doctorate in chess ?",
+    "Dr not Bad":"Dr Good ?",
     "I game usually": "Which game ?",
     "I'm not coding": "What are you upto then ?",
     "When I'm not coding": "Slep.",
@@ -50,9 +55,13 @@ const sentence_set = {
     "I like football": "Great ! Which position do you play ?",
     "I like watching web series": "Which one's the best ?",
     "I've already completed Dr House": "Oh great, im on season 6.",
+    "already completed Dr House": "2 more seasons to go for me!",
     "I've already completed Breaking Bad": "Same!",
+    "already completed Breaking Bad": "I did too.",
     "I've almost completed Dr House": "Me too!",
+    "almost completed Dr House": "Me too!",
     "I've almost completed Breaking Bad": "BCS next.",
+    "almost completed Breaking Bad": "Gonna watch the jesse sequel next?",
     "I've completed Dr House": "Oh great, im almost done.",
     "I've completed Breaking Bad": "Same!",
     "I've completed web series": "Which!",
@@ -117,7 +126,6 @@ const sentence_set = {
     "I'm already coding": "Don't let me distract you.",
     "football and chess": "Odd combo, but okay.",
     "I play game": "Which one you playing?",
-    "I'm coding": "Happy for you.",
     "completed chess": "Wait, how do you complete chess?",
     "watching badminton": "Much better to play it.",
     "web series or football": "Football anytime.",
@@ -228,19 +236,16 @@ const sentence_set = {
     "Bad chess": "Blunders happen.",
     "not usually": "Sometimes is enough.",
     "already completed web series": "Which one was it?",
-    "I'm House": "Everybody lies.",
-    "I'm Dr House": "Are you a doctor or a patient?",
+    "I'm Dr House": "you're a cripple ?",
     "watching House": "Diagnosis?",
     "watching Dr": "Which doctor? House?",
     "watching Dr House": "It's never Lupus.",
-    "I'm Dr": "A medical doctor?",
-    "I'm Doctor": "Doctor who?",
+    "I'm Dr": "Hi doctor, I'm arnav.",
     "completed House": "Was the ending good?",
     "almost House": "Almost finished with the series?",
-    "already House": "You finished it fast.",
     "I'm Breaking": "Breaking what?",
-    "I'm Bad": "Stay out of my territory.",
-    "watching Breaking": "Keep watching, it gets intense.",
+    "watching Breaking Bad": "Keep watching, it gets intense.",
+    "completed watching Breaking Bad": "What's next ?",
     "watching Bad": "Breaking Bad?",
     "completed Breaking": "The finale is perfect.",
     "almost Bad": "Almost at the end of the show?",
@@ -308,7 +313,7 @@ const sentence_set = {
     "usually I": "Usually you what?",
     "I'm already": "Already? That was fast.",
     "not Bad": "Good to be good.",
-    "already House": "You finished the season?",
+    "already House": "Welcome home.",
     "almost Breaking": "The tension is building.",
     "I'm not football": "Correct, you are human.",
     "usually watching web": "Every day?",
@@ -337,13 +342,13 @@ const sentence_set = {
     "coding , I usually game": "A classic dev hobby.",
     "I'm coding": "What are you making?",
     "I'm House": "Everybody lies.",
-    "I'm Dr": "A medical doctor?",
-    "I'm Bad": "Breaking Bad?",
     "I'm reading": "Which part are you at?",
     "I've already": "Finished?",
     "I've almost": "Nearly there.",
     "already completed": "Done and dusted.",
-    "almost completed": "So close!"
+    "almost completed": "So close!",
+    "When I'm not coding , I usually game or read . I play badminton , table tennis , chess , football . I also like watching web series . I've already completed Breaking Bad and I've almost completed Dr House .": "Why ? Just Why ? Looks like you've got too much free time...",
+    "When I'm not coding , I usually game or read" : "What are you upto ?"
 };
 
 
@@ -448,26 +453,25 @@ function findPhrase(word){
     }
 }
 
-
-function typeReply(reply){
-    chatArea.textContent = "";
-    for (let i = 0; i < reply.length; i++) {
-        setTimeout(function(){
-            chatArea.textContent += reply[i];
-        }, 60*i);
+let replyTimeout = null;
+function typeReply(text) {
+    if (replyTimeout) {
+        clearTimeout(replyTimeout);
+        replyTimeout = null;
     }
+
+    const chatText = document.getElementById('hobbies-chat-text');
+    chatText.textContent = '';
+    chatText.style.opacity = 1;
+
+    let i = 0;
+    
+    function type() {
+        if (i < text.length) {
+            chatText.textContent += text.charAt(i);
+            i++;
+            replyTimeout = setTimeout(type, 50);
+        }
+    }
+    type();
 }
-
-
-// for (let i =0; i < screenWidth; i+=2){
-//     const doc = document.elementFromPoint(i, centerY);
-
-//     if (doc && doc.classList.contains("draggable-word")) {
-//         currentSentence += doc.textContent + " ";
-//         if (sentence_set.hasOwnProperty(currentSentence.trim())) {
-            
-//             typeReply(sentence_set[currentSentence.trim()]);
-//         }
-//         i = doc.getBoundingClientRect().right + 2;
-//     }
-// }
