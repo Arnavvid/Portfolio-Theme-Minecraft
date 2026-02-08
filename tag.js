@@ -92,22 +92,27 @@ class Player {
         this.control = controls[id];
         this.facing = 1;
         this.teleportCooldown = 0;
+        this.boostTimer = 0;
     }
 
     update() {
         if (this.teleportCooldown > 0) this.teleportCooldown--;
 
+        let accel = this.boostTimer > 0 ? MOVE_SPEED * BOOST_MULTIPLIER : MOVE_SPEED;
+
         if (keys[this.control.left]) {
-            this.vx -= MOVE_SPEED;
+            this.vx -= accel;
             this.facing = -1;
         }
         if (keys[this.control.right]) {
-            this.vx += MOVE_SPEED;
+            this.vx += accel;
             this.facing = 1;
         }
 
         this.vx *= FRICTION;
-        this.vx = Math.max(Math.min(this.vx, MAX_SPEED), -MAX_SPEED);
+        let maxSpeed = this.boostTimer > 0 ? MAX_SPEED * BOOST_MULTIPLIER : MAX_SPEED;
+        this.vx = Math.max(Math.min(this.vx, maxSpeed), -maxSpeed);
+
 
         if (keys[this.control.up] && this.isGrounded) {
             this.vy = JUMP_FORCE;
@@ -134,6 +139,10 @@ class Player {
                 this.isGrounded = true;
             }
         }
+        if (this.boostTimer > 0) {
+            this.boostTimer -= 1/60;
+        }
+
     }
 
     draw() {
@@ -187,6 +196,8 @@ function startGame(count) {
 
     hint.style.display = 'block';
     hint.innerHTML = `<span style="color:${colors[0]}">P1: WASD</span> | <span style="color:${colors[1]}">P2: Arrows</span>${count > 2 ? ` | <span style="color:${colors[2]}">P3: IJL</span>` : ''}`;
+    BoostManager.active = false;
+    BoostManager.timer = 2;
 }
 
 function checkTagCollisions() {
@@ -241,8 +252,10 @@ function update(dt) {
     players.forEach(p => p.update());
     
     PortalManager.update(dt);
-    
+    BoostManager.update(dt);
     checkTagCollisions();
+
+
 }
 
 function draw() {
@@ -266,6 +279,7 @@ function draw() {
     }
 
     PortalManager.draw();
+    BoostManager.draw();
 
     players.forEach(p => p.draw());
     if (players[starHolder]) drawStar(players[starHolder]);
@@ -506,6 +520,76 @@ function drawPortal(x, y, color, size = 1) {
     ctx.globalCompositeOperation = 'source-over';
     ctx.restore();
 }
+const BOOST_DURATION = 5.0;
+const BOOST_RESPAWN = 8.0;
+const BOOST_MULTIPLIER = 2;
+
+const BoostManager = {
+    x: 0,
+    y: 0,
+    radius: 10,
+    active: false,
+    timer: 0,
+
+    spawn() {
+        const spot = platforms[Math.floor(Math.random() * platforms.length)];
+        this.x = spot.x + Math.random() * spot.w;
+        this.y = spot.y - 20;
+        this.active = true;
+    },
+
+    update(dt) {
+        if (!this.active) {
+            this.timer -= dt;
+            if (this.timer <= 0) {
+                this.spawn();
+            }
+            return;
+        }
+
+        for (let p of players) {
+            const d = Math.hypot(
+                (p.x + p.w/2) - this.x,
+                (p.y + p.h/2) - this.y
+            );
+
+            if (d < this.radius + 10) {
+                p.boostTimer = BOOST_DURATION;
+                this.active = false;
+                this.timer = BOOST_RESPAWN;
+            }
+        }
+    },
+
+    draw() {
+        if (!this.active) return;
+
+        const t = Date.now() / 300;
+
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.globalCompositeOperation = "lighter";
+
+        // glow
+        const g = ctx.createRadialGradient(0,0,2,0,0,30);
+        g.addColorStop(0,"rgba(0,255,255,0.9)");
+        g.addColorStop(1,"rgba(0,255,255,0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(0,0,30,0,Math.PI*2);
+        ctx.fill();
+
+        // core orb
+        ctx.fillStyle = "#00ffff";
+        ctx.beginPath();
+        ctx.arc(0, Math.sin(t)*3, 8, 0, Math.PI*2);
+        ctx.fill();
+
+        ctx.restore();
+        ctx.globalCompositeOperation = "source-over";
+    }
+};
+
 
 function stopTagGame() {
     tagPaused = true;
