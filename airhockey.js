@@ -594,7 +594,7 @@ function drawAirGameOver() {
 
 function stopAirHockey() {
     airGame.running = false;
-
+    handleAirCanvasClick();
     if (airLoopId !== null) {
         cancelAnimationFrame(airLoopId);
         airLoopId = null;
