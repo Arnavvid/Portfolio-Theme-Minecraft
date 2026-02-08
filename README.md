@@ -1,4 +1,5 @@
 # Minecraft Portfolio
+## Link for the hosted website: https://secondary-portfolio-website.web.app
 
 ## Description
 Minecraft Portfolio is a personal website designed with the look and feel of the game Minecraft. It features a custom 3D environment where a character follows the user's mouse movement. The site includes a unique interactive "Hobbies" section where users drag words to form sentences and a "Game Zone" with fully playable mini-games.
