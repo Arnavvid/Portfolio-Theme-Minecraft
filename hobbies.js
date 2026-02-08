@@ -428,7 +428,6 @@ document.addEventListener("mousemove", (event)=>{
         (event.clientY - areaRect.top - offsetY) + "px";
 });
 
-
 document.addEventListener("mouseup", (event) => {
     if (activeWord) findPhrase(activeWord);
     console.log(currentSentence);
